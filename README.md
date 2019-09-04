@@ -21,7 +21,7 @@
 
     这里将以常规操作logging流程为主线，把logging源码串一下。
     整体流程：logger.debug('debug infomations') 
-    ```
+    ```python
     def debug(self, msg, *args, **kwargs):
         """
         Log 'msg % args' with severity 'DEBUG'.
@@ -35,7 +35,7 @@
             self._log(DEBUG, msg, args, **kwargs)
     ```
     --> Logger._log(DEBUG, msg)
-    ```
+    ```python
     def _log(self, level, msg, args, exc_info=None, extra=None):
         """
         Low-level logging routine which creates a LogRecord and then calls
