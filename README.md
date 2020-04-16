@@ -11,6 +11,9 @@
          * [4 解决方法2：更改判断机制](#4-解决方法2_更改判断机制)
          * [5 解决方法3：使用其他handler](#5-解决方法3_使用其他handler)
          * [6 解决方法4: 不使用分割机制](#6-解决方法4_不使用分割机制)
+         
+   * [IO](#IO)
+      * [1 write关于Carriage return&Line feed行为问题](#1-write关于Carriage return&Line feed行为问题)
 
 
 <!-- markdown-toc end -->
@@ -362,3 +365,26 @@ if not os.path.exists(dfn) and os.path.exists(self.baseFilename):
 ### 6 解决方法4_不使用分割机制
     <光芒敬基友> <未验证>
     我们让python只负责写日志，再专门写一个linux定时任务负责执行分割逻辑（依然重命名就好）
+    
+    
+# IO
+## 1 write关于Carriage return&Line feed行为问题
+    问题描述：python3使用open获取文件句柄，用write()函数写入文件后，carriage return 转义为 line feed，业务需求不进行转义。
+    ```python
+    # carriage return = \r
+    # line feed = \n
+    >> ord('\n')
+    10
+    >> ord('\r')
+    13
+    ```
+### 解决 string类型先转为bytes类型再写入文件
+    ```python
+    # write
+    with open('filename', 'wb') as wf:
+        wf.write(bytes(mystr_, 'UTF-8'))
+    
+    # read
+    with open('filename' 'rb') as rf:
+        str(rf.read(), 'UTF-8')
+    ```
